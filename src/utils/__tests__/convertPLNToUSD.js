@@ -13,4 +13,22 @@ describe('ConvertPLNtoUSD', () => {
         expect(convertPLNToUSD('abc')).toBeNaN();
         expect(convertPLNToUSD('-543')).toBeNaN();
     });
+
+    it('should return NaN when input is empty', () => {
+        expect(convertPLNToUSD()).toBeNaN();
+    });
+
+    it('should return error when inpot is not text or number', () => {
+        expect(convertPLNToUSD({})).toBe('Error');
+        expect(convertPLNToUSD([])).toBe('Error');
+        expect(convertPLNToUSD(null)).toBe('Error');
+        expect(convertPLNToUSD(function() {})).toBe('Error');
+    });
+
+    it('should return zero when the argument is less than zero', () => {
+        expect(convertPLNToUSD(-30)).toBe('$0.00');
+        expect(convertPLNToUSD(-125)).toBe('$0.00');
+        expect(convertPLNToUSD(-0,3)).toBe('$0.00');
+        expect(convertPLNToUSD(-1)).toBe('$0.00');
+    });
 });
